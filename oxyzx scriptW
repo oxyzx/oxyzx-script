@@ -1,0 +1,223 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local TextButton = Instance.new("TextButton")
+local TextButton_2 = Instance.new("TextButton")
+local TextButton_3 = Instance.new("TextButton")
+local TextButton_4 = Instance.new("TextButton")
+local TextButton_5 = Instance.new("TextButton")
+local TextLabel = Instance.new("TextLabel")
+local TextLabel_2 = Instance.new("TextLabel")
+
+--Properties:
+
+ScrollingFrame.Parent = game.StarterGui.ScreenGui
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Position = UDim2.new(0.130434781, 0, 0.160753876, 0)
+ScrollingFrame.Size = UDim2.new(0, 438, 0, 239)
+
+TextButton.Parent = ScrollingFrame
+TextButton.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+TextButton.Position = UDim2.new(0.378995419, 0, 0.138216823, 0)
+TextButton.Size = UDim2.new(0, 231, 0, 34)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "admin fly [X]"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 14.000
+TextButton.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/22kristina/swag/main/admin_fly'))()
+end)
+
+TextButton_2.Parent = ScrollingFrame
+TextButton_2.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+TextButton_2.Position = UDim2.new(0.378995419, 0, 0.0328953154, 0)
+TextButton_2.Size = UDim2.new(0, 231, 0, 34)
+TextButton_2.Font = Enum.Font.SourceSans
+TextButton_2.Text = "streamable silent aim [OP]"
+TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.TextSize = 14.000
+TextButton_2.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/tayodevelup/imsoniac/main/silentaim", true))()
+end)
+
+TextButton_3.Parent = ScrollingFrame
+TextButton_3.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+TextButton_3.Position = UDim2.new(0.378995419, 0, 0.0628287941, 0)
+TextButton_3.Size = UDim2.new(0, 231, 0, 34)
+TextButton_3.Font = Enum.Font.SourceSans
+TextButton_3.Text = "Shazam script [Shazam!]"
+TextButton_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_3.TextSize = 14.000
+TextButton_3.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/NoUGotbannedlol/DaHub/main/Shazam-RedorGreen"))()
+end)
+
+TextButton_4.Parent = ScrollingFrame
+TextButton_4.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+TextButton_4.Position = UDim2.new(0.378995419, 0, 0.0894363448, 0)
+TextButton_4.Size = UDim2.new(0, 231, 0, 34)
+TextButton_4.Font = Enum.Font.SourceSans
+TextButton_4.Text = "silent aim [regular]"
+TextButton_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_4.TextSize = 14.000
+TextButton_4.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Impulseonyoutube/scripts/main/dahood"))()
+end)
+
+TextButton_5.Parent = ScrollingFrame
+TextButton_5.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+TextButton_5.Position = UDim2.new(0.378995419, 0, 0.112717934, 0)
+TextButton_5.Size = UDim2.new(0, 231, 0, 34)
+TextButton_5.Font = Enum.Font.SourceSans
+TextButton_5.Text = "aimlock [thusky Q]"
+TextButton_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_5.TextSize = 14.000TextButton_4.MouseButton1Down:connect(function()
+
+--[[
+████████ ██   ██ ██    ██ ███████ ██   ██ ██    ██ 
+   ██    ██   ██ ██    ██ ██      ██  ██   ██  ██  
+   ██    ███████ ██    ██ ███████ █████     ████   
+   ██    ██   ██ ██    ██      ██ ██  ██     ██    
+   ██    ██   ██  ██████  ███████ ██   ██    ██                                               
+]]
+	local Settings = {
+		AimLock = {
+			Enabled = true,
+			Aimlockkey = "q",
+			Prediction = 0.135,
+			Aimpart = 'HumanoidRootPart',
+			Notifications = false
+		},
+		Settings = {
+			Thickness = 3.5,
+			Transparency = 1,
+			Color = Color3.fromRGB(153, 50, 204),
+			FOV = true
+		}
+
+	}
+
+	local CurrentCamera = game:GetService("Workspace").CurrentCamera
+	local Inset = game:GetService("GuiService"):GetGuiInset().Y
+	local RunService = game:GetService("RunService")
+
+	local Mouse = game.Players.LocalPlayer:GetMouse()
+	local LocalPlayer = game.Players.LocalPlayer
+
+	local Line = Drawing.new("Line")
+	local Circle = Drawing.new("Circle")
+
+	local Plr
+
+	Mouse.KeyDown:Connect(function(KeyPressed)
+		if KeyPressed == (Settings.AimLock.Aimlockkey) then
+			if Settings.AimLock.Enabled == true then
+				Settings.AimLock.Enabled = false
+				if Settings.AimLock.Notifications == true then
+					Plr = FindClosestPlayer()
+					game.StarterGui:SetCore("SendNotification", {
+						Title = "Private",
+						Text = "Unlocked"
+					})
+				end
+			else
+				Plr = FindClosestPlayer()
+				Settings.AimLock.Enabled = true
+				if Settings.AimLock.Notifications == true then
+					game.StarterGui:SetCore("SendNotification", {
+						Title = "Private",
+						Text = "Locked On :  " .. tostring(Plr.Character.Humanoid.DisplayName)
+					})
+				end
+			end
+		end
+	end)
+
+	function FindClosestPlayer()
+		local ClosestDistance, ClosestPlayer = math.huge, nil;
+		for _, Player in next, game:GetService("Players"):GetPlayers() do
+			local ISNTKNOCKED = Player.Character:WaitForChild("BodyEffects")["K.O"].Value ~= true
+			local ISNTGRABBED = Player.Character:FindFirstChild("GRABBING_COINSTRAINT") == nil
+
+			if Player ~= LocalPlayer then
+				local Character = Player.Character
+				if Character and Character.Humanoid.Health > 1 and ISNTKNOCKED and ISNTGRABBED then
+					local Position, IsVisibleOnViewPort = CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart
+						.Position)
+					if IsVisibleOnViewPort then
+						local Distance = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Position.X, Position.Y)).Magnitude
+						if Distance < ClosestDistance then
+							ClosestPlayer = Player
+							ClosestDistance = Distance
+						end
+					end
+				end
+			end
+		end
+		return ClosestPlayer, ClosestDistance
+	end
+
+	RunService.Heartbeat:connect(function()
+		if Settings.AimLock.Enabled == true then
+			local Vector = CurrentCamera:WorldToViewportPoint(Plr.Character[Settings.AimLock.Aimpart].Position +
+				(Plr.Character[Settings.AimLock.Aimpart].Velocity *
+					Settings.AimLock.Prediction))
+			Line.Color = Settings.Settings.Color
+			Line.Transparency = Settings.Settings .Transparency
+			Line.Thickness = Settings.Settings .Thickness
+			Line.From = Vector2.new(Mouse.X, Mouse.Y + Inset)
+			Line.To = Vector2.new(Vector.X, Vector.Y)
+			Line.Visible = true
+			Circle.Position = Vector2.new(Mouse.X, Mouse.Y + Inset)
+			Circle.Visible = Settings.Settings.FOV
+			Circle.Thickness = 1.5
+			Circle.Thickness = 2
+			Circle.Radius = 60
+			Circle.Color = Settings.Settings.Color
+		elseif Settings.AimLock.FOV == true then
+			Circle.Visible = true
+		else
+			Circle.Visible = false
+			Line.Visible = false
+		end
+	end)
+
+	local mt = getrawmetatable(game)
+	local old = mt.__namecall
+	setreadonly(mt, false)
+	mt.__namecall = newcclosure(function(...)
+		local args = {...}
+		if Settings.AimLock.Enabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+			args[3] = Plr.Character[Settings.AimLock.Aimpart].Position +
+				(Plr.Character[Settings.AimLock.Aimpart].Velocity * Settings.AimLock.Prediction)
+
+			return old(unpack(args))
+		end
+		return old(...)
+	end)
+
+end)
+
+TextLabel.Parent = ScrollingFrame
+TextLabel.BackgroundColor3 = Color3.fromRGB(67, 67, 67)
+TextLabel.Position = UDim2.new(0.0231288467, 0, 0.18237251, 0)
+TextLabel.Size = UDim2.new(0, 417, 0, 60)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "more coming soon!"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+
+TextLabel_2.Parent = ScrollingFrame
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(67, 67, 67)
+TextLabel_2.Position = UDim2.new(0.00228310493, 0, 0, 0)
+TextLabel_2.Size = UDim2.new(0, 437, 0, 34)
+TextLabel_2.Font = Enum.Font.SourceSans
+TextLabel_2.Text = "oxyzx GUI                                 version 1.4"
+TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.TextSize = 14.000
